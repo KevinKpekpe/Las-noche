@@ -7,6 +7,10 @@ use Illuminate\Http\Request;
 
 class RoomController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth',['only'=>['makereservation','confirmreservation']]);
+    }
     public function index()
     {
         $rooms = Room::paginate(6);
@@ -19,5 +23,9 @@ class RoomController extends Controller
     }
     public function makereservation(string $slug,Room $room){
         return view('reservation',['room'=>$room]);
+    }
+    public function confirmreservation(Request $request)
+    {
+
     }
 }
