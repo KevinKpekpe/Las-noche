@@ -5,42 +5,21 @@
         <div class="row">
             <div class="col-md-8">
                 <h1>Réservation de chambre</h1>
-                <form>
-                    <div class="mb-3">
-                        <label for="inputName" class="form-label">Nom complet</label>
-                        <input type="text" class="form-control" id="inputName" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="inputEmail" class="form-label">Adresse email</label>
-                        <input type="email" class="form-control" id="inputEmail" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="inputPhone" class="form-label">Numéro de téléphone</label>
-                        <input type="tel" class="form-control" id="inputPhone" required>
-                    </div>
+                <form action="{{route('validatereservation')}}" id="form" method="POST">
+                    @csrf
                     <div class="mb-3">
                         <label for="inputCheckIn" class="form-label">Date d'arrivée</label>
-                        <input type="date" class="form-control" id="inputCheckIn" required>
+                        <input type="date" class="form-control" id="inputCheckIn" name="arrivaltime">
                     </div>
                     <div class="mb-3">
                         <label for="inputCheckOut" class="form-label">Date de départ</label>
-                        <input type="date" class="form-control" id="inputCheckOut" required>
+                        <input type="date" class="form-control" id="inputCheckOut" name="departuretime">
                     </div>
-                    <div class="mb-3">
-                        <label for="inputRoomType" class="form-label">Type de chambre</label>
-                        <select class="form-select" id="inputRoomType" required>
-                            <option value="">Sélectionnez un type de chambre</option>
-                            <option value="chambre_luxe">Chambre de Luxe</option>
-                            <option value="chambre_standard">Chambre Standard</option>
-                            <option value="chambre_familiale">Chambre Familiale</option>
-                        </select>
-                    </div>
-                    <div class="mb-3">
-                        <label for="inputMessage" class="form-label">Message (optionnel)</label>
-                        <textarea class="form-control" id="inputMessage" rows="3"></textarea>
-                    </div>
+                    <input type="hidden" name="room_id" value="{{$room->id}}">
+                    <input type="hidden" name="price" value="{{$room->price}}">
+                    <input type="hidden" name="payment_method" id="payment_method">
                     <div id="card-element"></div>
-                    <button type="submit" class="btn btn-primary">Réserver</button>
+                    <button type="submit" id="submit-button" class="btn btn-primary">Réserver</button>
                 </form>
             </div>
             <div class="col-md-4">

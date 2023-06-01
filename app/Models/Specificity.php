@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Specificity extends Model
 {
     use HasFactory;
+    protected $guarded = [];
     public function rooms(){
         return $this->belongsToMany(Room::class);
     }

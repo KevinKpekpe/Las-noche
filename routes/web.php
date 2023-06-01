@@ -27,6 +27,7 @@ Route::get('/room/reservation/{slug}-{room}',[RoomController::class,'makereserva
     "room" => '[0-9]+',
     "slug" => '[a-z0-9\-]+'
 ])->name('reservation');
+Route::post('/room/reservation',[RoomController::class,'confirmreservation'])->name('validatereservation');
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');

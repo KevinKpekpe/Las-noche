@@ -26,6 +26,18 @@ class RoomController extends Controller
     }
     public function confirmreservation(Request $request)
     {
-
+        $authed_user = auth()->user();
+        $amount = $request->price;
+        $authed_user->charge(
+            $request->price, $request->payment_method
+        );
+        $room = $authed_user->reservations()->create(
+            [
+                'room_id' => $request->room_id,
+                'arrivaltime' => $request->arrivaltime,
+                'departuretime' => $request->departuretime,
+            ]
+        );
+        return redirect()->route('index')->with('success','reservation reussie');
     }
 }

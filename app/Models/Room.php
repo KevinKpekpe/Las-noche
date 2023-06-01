@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Room extends Model
 {
     use HasFactory;
+    protected $guarded = [];
     public function specificities(){
         return $this->belongsToMany(Specificity::class);
     }
@@ -15,5 +16,8 @@ class Room extends Model
     public function category()
     {
         return $this->belongsTo(Category::class);
+    }
+    public function reservations(){
+        return $this->hasMany(Reservation::class);
     }
 }
