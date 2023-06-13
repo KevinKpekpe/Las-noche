@@ -13,7 +13,8 @@ class RoomController extends Controller
     }
     public function index()
     {
-        $rooms = Room::paginate(6);
+        $rooms = Room::where('etat', 1)
+                    ->paginate(10);
         return view('index',['rooms' => $rooms]);
     }
     public function show(string $slug,Room $room)	
@@ -27,9 +28,9 @@ class RoomController extends Controller
     public function confirmreservation(Request $request)
     {
         $authed_user = auth()->user();
-        $amount = $request->price;
+        $amount = intval($request->price) * 100;
         $authed_user->charge(
-            $request->price, $request->payment_method
+            $amount, $request->payment_method
         );
         $room = $authed_user->reservations()->create(
             [
@@ -38,6 +39,8 @@ class RoomController extends Controller
                 'departuretime' => $request->departuretime,
             ]
         );
-        return redirect()->route('index')->with('success','reservation reussie');
+        $roomid = Room::find($request->room_id);
+        $roomid->update(['etat'=> 0]);
+        return redirect()->route('welcome')->with('success','reservation reussie');
     }
 }

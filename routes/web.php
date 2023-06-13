@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\admin\RoomController as AdminRoomController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoomController;
 use Illuminate\Support\Facades\Route;
@@ -14,11 +15,16 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
+Route::get('/admin',[AdminRoomController::class,'index'])->name('admin.home');
+Route::get('/admin/room/form',[AdminRoomController::class,'create'])->name('admin.room.form');
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('/room',[RoomController::class,'index']);
+Route::get('/admin/room/{slug}-{room}',[RoomController::class,'show'])->where([
+    "room" => '[0-9]+',
+    "slug" => '[a-z0-9\-]+'
+])->name('admin.room.show');
+Route::get('/room',[RoomController::class,'index'])->name('welcome');
 Route::get('/room/{slug}-{room}',[RoomController::class,'show'])->where([
     "room" => '[0-9]+',
     "slug" => '[a-z0-9\-]+'
