@@ -17,7 +17,7 @@ class RoomController extends Controller
                     ->paginate(10);
         return view('index',['rooms' => $rooms]);
     }
-    public function show(string $slug,Room $room)	
+    public function show(string $slug,Room $room)
     {
         $rooms = Room::query()->where('category_id','=',$room->category_id)->get();
         return view('show',['room'=>$room,'rooms'=>$rooms]);

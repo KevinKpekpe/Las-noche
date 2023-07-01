@@ -3,7 +3,7 @@
 <div class="row">
     <div class="col-md-12">
         <h2>Liste des chambres</h2>
-        <a href="{{route('admin.room.form')}}" class="btn btn-success">Créer une nouvelle chambre</a>
+        <a href="{{route('admin.room.create')}}" class="btn btn-success">Créer une nouvelle chambre</a>
         <table class="table table-hover">
             <thead>
                 <tr>
@@ -22,7 +22,7 @@
                     <td>{{$room->category->title}}</td>
                     <td>{{$room->price}}€/nuit</td>
                     <td>
-                      <a href="{{route('admin.room.show',['slug'=> $room->slug,'room'=> $room->id])}}" class="btn btn-primary">Modifier</a>
+                      <a href="{{route('admin.room.edit',['slug'=> $room->slug,'room'=> $room->id])}}" class="btn btn-primary">Modifier</a>
                       <a href="#" class="btn btn-danger">supprimer</a>
                     </td>
                 </tr>

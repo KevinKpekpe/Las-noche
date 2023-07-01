@@ -18,18 +18,18 @@ class RoomController extends Controller
     public function create(){
         $room = new Room();
         return view('admin.rooms.form',[
-            'rooms'=>$room,
-            'categories'=>Category::select('id','name')->get(),
-            'specificities'=>Specificity::select('id','name')->get()
+            'room'=>$room,
+            'categories'=>Category::select('id','title')->get(),
+            'specificities'=>Specificity::select('id','title')->get()
         ]);
     }
-    public function store(RommRequest $request)
+    public function store(Request $request)
     {
         $room = Room::create($this->extractData(new Room(),$request));
         $room->specificities()->sync($request->validated('specificities'));
-        return redirect()->route('admin.room.show',['slug' => $room->slug, 'room' => $room->id])->with('success',"L'article a été inseré avec succès");
+        return redirect()->route('admin.room.show',['slug' => $room->slug, 'room' => $room->id])->with('success',"La chambre a été inseré avec succès");
     }
-    private function extractData(Room $room,RommRequest $request):array
+    private function extractData(Room $room,Request $request):array
     {
         $data = $request->validated();
         /** @var UploadedFile|null $image */

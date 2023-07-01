@@ -1,6 +1,10 @@
 @extends('base')
 @section('content')
-    
+@if (session('success'))
+<div class="alert alert-success">
+    {{session('success')}}
+</div>
+@endif
 <section class="jumbotron text-center">
     <div class="container">
         <h1>Spectre Hôtel</h1>

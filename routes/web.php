@@ -5,25 +5,18 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoomController;
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
 Route::get('/admin',[AdminRoomController::class,'index'])->name('admin.home');
-Route::get('/admin/room/form',[AdminRoomController::class,'create'])->name('admin.room.form');
+Route::get('/admin/room/form',[AdminRoomController::class,'create'])->name('admin.room.create');
+Route::post('/admin/room/create',[AdminRoomController::class,'store'])->name('admin.room.store');
+Route::get('/admin/room/edit/{room}',[AdminRoomController::class,'edit'])->name('admin.room.edit');
+Route::put('/admin/room/update',[AdminRoomController::class,'update'])->name('admin.room.update');
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('/admin/room/{slug}-{room}',[RoomController::class,'show'])->where([
+Route::get('/admin/room/edit/{slug}-{room}',[RoomController::class,'edit'])->where([
     "room" => '[0-9]+',
     "slug" => '[a-z0-9\-]+'
-])->name('admin.room.show');
+])->name('admin.room.edit');
 Route::get('/room',[RoomController::class,'index'])->name('welcome');
 Route::get('/room/{slug}-{room}',[RoomController::class,'show'])->where([
     "room" => '[0-9]+',
